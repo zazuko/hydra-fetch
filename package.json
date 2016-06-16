@@ -1,0 +1,34 @@
+{
+  "name": "hydra-fetch",
+  "version": "0.1.0",
+  "description": "Uses Fetch and SimpleRDF for Hydra calls",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bergos/hydra-fetch.git"
+  },
+  "keywords": [
+    "fetch",
+    "hydra",
+    "rdf",
+    "simplerdf"
+  ],
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bergos/hydra-fetch/issues"
+  },
+  "homepage": "https://github.com/bergos/hydra-fetch",
+  "dependencies": {
+    "simplerdf-fetch": "^0.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3",
+    "simplerdf": "^0.2.9",
+    "standard": "^7.1.2"
+  }
+}
