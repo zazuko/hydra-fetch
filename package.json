@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/bergos/hydra-fetch",
   "dependencies": {
+    "lodash": "^4.13.1",
     "simplerdf-fetch": "^0.3.0"
   },
   "devDependencies": {
