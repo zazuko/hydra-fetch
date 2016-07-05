@@ -86,6 +86,43 @@ describe('Api', () => {
 
       assert.equal(simple['http://example.org/property'].get, 'test')
     })
+
+    it('should attach the operations in supportedOperation to all items of the array', () => {
+      let properties = [{property: {
+        iri: () => {
+          return 'http://example.org/property'
+        },
+        supportedOperation: [{
+          method: 'GET'
+        }]
+      }}]
+      let simple = {
+        'http://example.org/property': [{}, {}]
+      }
+
+      Api.attachPropertiesOperationsCalls(properties, simple, operationCallFactory('test'))
+
+      assert.equal(simple['http://example.org/property'][0].get, 'test')
+      assert.equal(simple['http://example.org/property'][1].get, 'test')
+    })
+
+    it('should not attach the operations in supportedOperation if property value is not an object', () => {
+      let properties = [{property: {
+        iri: () => {
+          return 'http://example.org/property'
+        },
+        supportedOperation: [{
+          method: 'GET'
+        }]
+      }}]
+      let simple = {
+        'http://example.org/property': () => {}
+      }
+
+      Api.attachPropertiesOperationsCalls(properties, simple, operationCallFactory('test'))
+
+      assert.equal(typeof simple['http://example.org/property'].get, 'undefined')
+    })
   })
 
   describe('attachCalls', () => {
