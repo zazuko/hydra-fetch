@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/bergos/hydra-fetch",
   "dependencies": {
+    "babelify": "^7.3.0",
     "lodash": "^4.13.1",
     "simplerdf-fetch": "^0.3.0"
   },
@@ -31,5 +32,17 @@
     "mocha": "^2.5.3",
     "simplerdf": "^0.2.9",
     "standard": "^7.1.2"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   }
 }
