@@ -1,11 +1,10 @@
 {
   "name": "hydra-fetch",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Uses Fetch and SimpleRDF for Hydra calls",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
-    "test": "mocha"
+    "test": "standard && mocha"
   },
   "repository": {
     "type": "git",
@@ -24,26 +23,14 @@
   },
   "homepage": "https://github.com/bergos/hydra-fetch",
   "dependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
-    "lodash": "^4.13.1",
-    "simplerdf-fetch": "^0.3.0"
+    "lodash": "^4.17.4",
+    "rdf-ext": "^1.0.0",
+    "simplerdf-core": "git://github.com/simplerdf/simplerdf-core.git#develop",
+    "simplerdf-fetch": "git://github.com/bergos/simplerdf-fetch.git#develop"
   },
   "devDependencies": {
-    "mocha": "^2.5.3",
-    "simplerdf": "^0.2.9",
-    "standard": "^7.1.2"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+    "mocha": "^3.4.2",
+    "simplerdf": "git://github.com/simplerdf/simplerdf.git#develop",
+    "standard": "^10.0.2"
   }
 }

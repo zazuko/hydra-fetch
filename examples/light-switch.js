@@ -1,5 +1,5 @@
 const hydraFetch = require('..')
-const SimpleRDF = require('simplerdf/lite')
+const SimpleRDF = require('simplerdf-core')
 
 let context = {
   LightSwitch: 'http://example.org/LightSwitch',

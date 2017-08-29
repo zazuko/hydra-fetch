@@ -5,7 +5,7 @@
 const assert = require('assert')
 const context = require('../lib/context')
 const Api = require('../lib/Api')
-const SimpleRDF = require('simplerdf/lite').SimpleRDF
+const SimpleRDF = require('simplerdf-core')
 
 function operationCallFactory (value) {
   return function () {
