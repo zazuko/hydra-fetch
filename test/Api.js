@@ -1,11 +1,9 @@
 /* global describe, it */
 
-'use strict'
-
 const assert = require('assert')
 const context = require('../lib/context')
 const Api = require('../lib/Api')
-const SimpleRDF = require('simplerdf-core')
+const Simple = require('simplerdf-core')
 
 function operationCallFactory (value) {
   return function () {
@@ -53,24 +51,8 @@ describe('Api', () => {
       assert.equal(typeof Api.attachPropertiesOperationsCalls, 'function')
     })
 
-    it('should use .property.iri() to get the full namespace of the property', () => {
-      let touched = false
-      let properties = [{property: {
-        iri: () => {
-          touched = true
-
-          return 'http://example.org/property'
-        }
-      }}]
-      let simple = {}
-
-      Api.attachPropertiesOperationsCalls(properties, simple, operationCallFactory('test'))
-
-      assert.equal(touched, true)
-    })
-
     it('should attach the operations in supportedOperation', () => {
-      let properties = [{property: {
+      const properties = [{property: {
         iri: () => {
           return 'http://example.org/property'
         },
@@ -78,7 +60,8 @@ describe('Api', () => {
           method: 'GET'
         }]
       }}]
-      let simple = {
+
+      const simple = {
         'http://example.org/property': {}
       }
 
@@ -131,7 +114,7 @@ describe('Api', () => {
     })
 
     it('should attach operations defined in API object', () => {
-      let api = new SimpleRDF(context)
+      let api = new Simple(context)
 
       let supportedClass = api.child('http://example.org/Class')
       api.supportedClass.push(supportedClass)
@@ -140,7 +123,7 @@ describe('Api', () => {
       supportedOperation.method = 'GET'
       supportedClass.supportedOperation.push(supportedOperation)
 
-      let simple = new SimpleRDF({type: context.type}, 'http://example.org/subject')
+      let simple = new Simple({type: context.type}, 'http://example.org/subject')
       simple.type = simple.child('http://example.org/Class')
 
       Api.attachCalls(api, simple, operationCallFactory('test'))
@@ -149,7 +132,7 @@ describe('Api', () => {
     })
 
     it('should attach property operations defined in API object', () => {
-      let api = new SimpleRDF(context)
+      let api = new Simple(context)
 
       let supportedClass = api.child('http://example.org/Class')
       api.supportedClass.push(supportedClass)
@@ -164,7 +147,7 @@ describe('Api', () => {
       supportedOperation.method = 'GET'
       property.supportedOperation.push(supportedOperation)
 
-      let simple = new SimpleRDF({type: context.type, property: 'http://example.org/property'}, 'http://example.org/subject')
+      let simple = new Simple({type: context.type, property: 'http://example.org/property'}, 'http://example.org/subject')
       simple.type = simple.child('http://example.org/Class')
       simple.property = simple.child('http://example.org/link')
 

@@ -1,15 +1,13 @@
 /* global describe, it */
 
-'use strict'
-
 const assert = require('assert')
 const ApiHeader = require('../lib/ApiHeader')
 
 function buildResponse (headers) {
   return {
     headers: {
-      getAll: () => {
-        return headers
+      get: (key) => {
+        return headers[key]
       }
     }
   }
@@ -46,12 +44,12 @@ describe('ApiHeader', () => {
     it('should evaluate the link headers', () => {
       let touched = false
 
-      let res = {
+      const res = {
         headers: {
-          getAll: (type) => {
-            touched = type === 'link'
+          get: () => {
+            touched = true
 
-            return []
+            return ''
           }
         }
       }
@@ -62,30 +60,32 @@ describe('ApiHeader', () => {
     })
 
     it('should ignore other properties', () => {
-      let res = buildResponse(['</api>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"; title="title"'])
+      const res = buildResponse({link: '</api>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"; title="title"'})
 
       assert.equal(ApiHeader.parseResponse(res), '/api')
     })
 
     it('should return undefined if there is no link header', () => {
-      let res = buildResponse([])
+      const res = buildResponse({})
 
       assert.equal(ApiHeader.parseResponse(res), undefined)
     })
 
     it('should return undefined if there is no hydra#apiDocumentation link header', () => {
-      let res = buildResponse(['<example.css>; rel="stylesheet"; title="example"'])
+      const res = buildResponse({
+        link: '<example.css>; rel="stylesheet"; title="example"'
+      })
 
       assert.equal(ApiHeader.parseResponse(res), undefined)
     })
 
-    it('should return the first hydra#apiDocumentation link header', () => {
-      let res = buildResponse([
-        '</api1>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"; title="title"',
-        '</api2>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"; title="title"'
-      ])
+    it('should return the hydra#apiDocumentation link header', () => {
+      const res = buildResponse({link: [
+        '</context>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"',
+        '</api>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"; title="title"'
+      ].join(', ')})
 
-      assert.equal(ApiHeader.parseResponse(res), '/api1')
+      assert.equal(ApiHeader.parseResponse(res), '/api')
     })
   })
 })

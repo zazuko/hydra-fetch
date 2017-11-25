@@ -2,7 +2,7 @@
 
 const assert = require('assert')
 const Operation = require('../lib/Operation')
-const SimpleRDF = require('simplerdf')
+const Simple = require('simplerdf-core')
 
 describe('Operation', () => {
   describe('buildCall', () => {
@@ -20,8 +20,10 @@ describe('Operation', () => {
       let touched = false
       let fetch = () => {
         touched = true
+
+        return Promise.resolve()
       }
-      let simple = new SimpleRDF()
+      let simple = new Simple()
 
       Operation.buildCall(fetch, {method: 'get'}, simple)()
 
@@ -32,36 +34,38 @@ describe('Operation', () => {
       let calledMethod = null
       let fetch = (url, options) => {
         calledMethod = options.method
+
+        return Promise.resolve()
       }
-      let simple = new SimpleRDF()
+      let simple = new Simple()
 
       Operation.buildCall(fetch, {method: 'post'}, simple)()
 
       assert.equal(calledMethod, 'post')
     })
 
-    it('should use the IRI of the SimpleRDF object for the Fetch call', () => {
+    it('should use the IRI of the Simple object for the Fetch call', () => {
       let calledUrl = null
       let fetch = (url) => {
         calledUrl = url
 
         return Promise.resolve()
       }
-      let simple = new SimpleRDF({}, 'http://example.org/subject')
+      let simple = new Simple({}, 'http://example.org/subject')
 
       return Operation.buildCall(fetch, {method: 'get'}, simple)().then(() => {
         assert.equal(calledUrl, 'http://example.org/subject')
       })
     })
 
-    it('should use the context of the SimpleRDF object for the Fetch call', () => {
+    it('should use the context of the Simple object for the Fetch call', () => {
       let calledContext = null
       let fetch = (url, options) => {
         calledContext = options.context
 
         return Promise.resolve()
       }
-      let simple = new SimpleRDF({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
+      let simple = new Simple({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
 
       return Operation.buildCall(fetch, {method: 'get'}, simple)().then(() => {
         assert.equal(typeof calledContext.description, 'function')
@@ -69,14 +73,16 @@ describe('Operation', () => {
       })
     })
 
-    it('should use the context of the SimpleRDF object for the Fetch call', () => {
+    it('should use the context of the Simple object for the Fetch call', () => {
       let calledContext = null
-      let fetch = (url, options) => {
+
+      const fetch = (url, options) => {
         calledContext = options.context
 
         return Promise.resolve()
       }
-      let simple = new SimpleRDF({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
+
+      const simple = new Simple({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
 
       return Operation.buildCall(fetch, {method: 'get'}, simple)().then(() => {
         assert.equal(typeof calledContext.description, 'function')
@@ -91,10 +97,11 @@ describe('Operation', () => {
 
         return Promise.resolve()
       }
-      let simple = new SimpleRDF({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
+      let simple = new Simple({predicate: 'http://example.org/predicate'}, 'http://example.org/subject')
+      const input = new Simple()
 
-      return Operation.buildCall(fetch, {method: 'get'}, simple)('test').then(() => {
-        assert.equal(calledBody, 'test')
+      return Operation.buildCall(fetch, {method: 'get'}, simple)(input).then(() => {
+        assert.equal(calledBody, input)
       })
     })
   })
