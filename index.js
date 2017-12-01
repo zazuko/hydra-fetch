@@ -1,7 +1,7 @@
 const bySubjectCountFinder = require('simplerdf-iri-finder/bySubjectCount')
 const context = require('./lib/context')
 const merge = require('lodash/merge')
-const rdf = require('rdf-ext')
+const ns = require('./lib/namespace')
 const simpleFetch = require('simplerdf-fetch')
 const url = require('url')
 const Api = require('./lib/Api')
@@ -9,10 +9,6 @@ const ApiHeader = require('./lib/ApiHeader')
 const Operation = require('./lib/Operation')
 const Simple = require('simplerdf-core')
 const SimpleIriFinder = require('simplerdf-iri-finder')
-
-const ns = {
-  type: rdf.namedNode(context.type)
-}
 
 function hydraApiFetch (fetch, apiUrl, options) {
   options = merge({}, options, {context: context})

@@ -26,7 +26,8 @@
     "lodash": "^4.17.4",
     "rdf-ext": "^1.1.0",
     "simplerdf-fetch": "^1.1.0",
-    "simplerdf-iri-finder": "^1.1.0"
+    "simplerdf-iri-finder": "^1.1.0",
+    "uri-templates": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
