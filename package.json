@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "mocha": "^4.0.1",
-    "nock": "^9.1.3",
+    "nock": "^9.1.4",
     "readable-stream": "^2.3.3",
     "simplerdf-core": "^1.1.0",
     "simplerdf-fromjson": "^1.0.0",

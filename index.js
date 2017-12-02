@@ -1,4 +1,5 @@
 const bySubjectCountFinder = require('simplerdf-iri-finder/bySubjectCount')
+const byTypeFinder = require('simplerdf-iri-finder/byType')
 const context = require('./lib/context')
 const merge = require('lodash/merge')
 const ns = require('./lib/namespace')
@@ -38,8 +39,12 @@ function hydraFetch (reqUrl, options) {
       const types = simple.graph().match(simple.iri(), ns.type).toArray().map(quad => quad.object)
 
       // search for matching type in API
-      if (api && types.length) {
-        SimpleIriFinder.assignIri(api, types, [bySubjectCountFinder()])
+      if (api) {
+        if (types.length) {
+          SimpleIriFinder.assignIri(api, types, [bySubjectCountFinder()])
+        } else {
+          SimpleIriFinder.assignIri(api, null, [byTypeFinder(ns.ApiDocumentation)])
+        }
       }
 
       // attach api interface
