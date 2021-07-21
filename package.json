@@ -1,49 +1,39 @@
 {
   "name": "hydra-fetch",
-  "version": "0.1.6",
-  "description": "Uses Fetch and SimpleRDF for Hydra calls",
+  "description": "Fetch based Hydra client",
+  "version": "0.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
-    "test": "mocha"
+    "coverage": "codecov",
+    "test": "stricter-standard && c8 --reporter=lcov --reporter=text-summary mocha"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bergos/hydra-fetch.git"
-  },
-  "keywords": [
-    "fetch",
-    "hydra",
-    "rdf",
-    "simplerdf"
-  ],
   "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bergos/hydra-fetch/issues"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zazuko/hydra-fetch.git"
   },
-  "homepage": "https://github.com/bergos/hydra-fetch",
+  "bugs": {
+    "url": "https://github.com/zazuko/hydra-fetch/issues"
+  },
+  "homepage": "https://github.com/zazuko/hydra-fetch",
   "dependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "babelify": "^7.3.0",
-    "lodash": "^4.13.1",
-    "simplerdf-fetch": "^0.3.0"
+    "@rdfjs/fetch": "^2.1.0",
+    "@rdfjs/namespace": "^1.1.0",
+    "@rdfjs/term-map": "^1.0.1",
+    "@rdfjs/term-set": "^1.0.2",
+    "clownface": "^1.2.0",
+    "commander": "^8.0.0",
+    "lodash": "^4.17.21",
+    "rdf-ext": "^1.3.2"
   },
   "devDependencies": {
-    "mocha": "^2.5.3",
-    "simplerdf": "^0.2.9",
-    "standard": "^7.1.2"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+    "@rdfjs/express-handler": "^1.2.2",
+    "c8": "^7.7.3",
+    "codecov": "^3.8.3",
+    "express-as-promise": "^1.2.0",
+    "mocha": "^9.0.1",
+    "stricter-standard": "^0.2.0"
   }
 }
