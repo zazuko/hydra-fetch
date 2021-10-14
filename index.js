@@ -1,9 +1,7 @@
-import fetch from '@rdfjs/fetch'
+import fetch, { Headers } from '@rdfjs/fetch'
 import rdf from 'rdf-ext'
 import isDataset from './lib/isDataset.js'
 import patchResponse from './lib/patchResponse.js'
-
-const { Headers } = fetch
 
 async function hydraFetch (url, { factory = rdf, headers, body, ...options } = {}) {
   headers = new Headers(headers)
@@ -15,9 +13,12 @@ async function hydraFetch (url, { factory = rdf, headers, body, ...options } = {
 
   const res = await fetch(url, { headers, body, factory, ...options })
 
-  patchResponse({ factory, fetch: hydraFetch, res })
+  patchResponse({ factory, fetch: hydraFetch, fetchArgs: options, res })
 
   return res
 }
 
-export default hydraFetch
+export {
+  hydraFetch as default,
+  Headers
+}

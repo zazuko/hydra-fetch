@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/zazuko/hydra-fetch",
   "dependencies": {
-    "@rdfjs/fetch": "^2.1.0",
+    "@rdfjs/fetch": "^3.0.0",
     "@rdfjs/namespace": "^1.1.0",
     "@rdfjs/term-map": "^1.0.1",
     "@rdfjs/term-set": "^1.0.2",
