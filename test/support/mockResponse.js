@@ -1,8 +1,6 @@
-import fetch from '@rdfjs/fetch'
+import { Headers } from '@rdfjs/fetch'
 import rdf from 'rdf-ext'
 import * as ns from './namespaces.js'
-
-const { Headers } = fetch
 
 function mockResponse ({ api, dataset, location, url } = {}) {
   const headers = new Headers({ 'content-length': 1 })
